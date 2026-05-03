@@ -1,0 +1,399 @@
+﻿<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إلى أغلى الناس 💕</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital@1&family=Cairo:wght@400;700&family=Dancing+Script:wght@700&family=Pacifico&family=Reenie+Beanie&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pink-main: #ffb6c1;
+            --pink-dark: #c2185b;
+            --paper: #fdf5e6; /* لون الورق القديم */
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fad0c4 99%);
+            font-family: 'Cairo', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* --- شاشة القفل --- */
+        #lock-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            transition: 1s ease-in-out;
+        }
+
+        .lock-content {
+            position: absolute;
+            text-align: center;
+            z-index: 10001;
+        }
+
+        .heart-lock {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle at 30% 30%, #ffcbd5, #ff8fa3);
+            clip-path: path('M12 21.593c-5.63-5.539-11-10.297-11-14.402 0-3.791 3.068-5.191 5.281-5.191 1.312 0 4.151.501 5.719 4.457 1.59-3.968 4.464-4.447 5.726-4.447 2.54 0 5.274 1.621 5.274 5.181 0 4.069-5.136 8.625-11 14.402m5.726-20.583c-2.203 0-4.446 1.042-5.726 3.238-1.285-2.206-3.522-3.248-5.719-3.248-3.383 0-6.281 2.126-6.281 6.191 0 4.649 4.662 9.512 12 16.252 7.338-6.74 12-11.603 12-16.252 0-4.055-2.891-6.181-6.274-6.181');
+            transform: scale(15);
+        }
+
+        .digit-box {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            margin: 0 5px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+            .digit-box button {
+                background: none;
+                border: none;
+                color: var(--pink-dark);
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            .digit-box span {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #333;
+            }
+
+        .unlock-btn {
+            margin-top: 30px;
+            background: white;
+            color: var(--pink-dark);
+            border: none;
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- المحتوى الرئيسي --- */
+        #main-content {
+            display: none;
+            opacity: 0;
+            transition: 1.5s;
+            width: 100%;
+        }
+
+        /* الهيدر بصورة الخلفية a7 */
+        header#hbd-header-bg {
+            width: 100%;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.4)), url('images/a7.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-family: 'Pacifico', cursive;
+            color: var(--pink-dark);
+            font-size: 3rem;
+            text-shadow: 2px 2px 8px rgba(255,255,255,0.8);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 5px 20px;
+            border-radius: 20px;
+        }
+
+        /* الجاليري (الصورة السابعة في النص) */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .top-photo {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+
+        .photo-box {
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .single-photo {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .photo-box img {
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* الخطاب المحروق */
+        .love-letter {
+            background: var(--paper);
+            padding: 60px 50px;
+            width: 85%;
+            max-width: 600px;
+            margin: 40px auto;
+            border: 30px solid transparent;
+            border-image-source: url('https://www.transparentcode.com/wp-content/uploads/2019/07/parchment_border_image.png');
+            border-image-slice: 100;
+            transform: rotate(-1deg);
+            box-shadow: 10px 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .english-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.7rem;
+            color: #4b3621;
+            line-height: 1.5;
+            text-align: left;
+        }
+
+        /* كارت المفاجأة (Spotify) */
+        .anniversary-card {
+            background: white;
+            margin: 50px auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 700px;
+            border: 15px solid;
+            border-image: linear-gradient(to bottom right, #ff9a9e, #fad0c4) 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card-title {
+            font-family: 'Pacifico', cursive;
+            color: #c2185b;
+            font-size: 2rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .left-panel {
+            flex: 2;
+            direction: rtl;
+            text-align: right;
+        }
+
+        .right-panel {
+            flex: 1;
+            text-align: center;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 1px dashed #ffb6c1;
+        }
+
+        .spotify-qr {
+            width: 110px;
+            margin-top: 10px;
+        }
+
+        /* صندوق التقييم */
+        .feedback-card {
+            max-width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            text-align: center;
+            border: 2px solid var(--pink-main);
+        }
+
+            .feedback-card textarea {
+                width: 100%;
+                height: 100px;
+                border-radius: 12px;
+                border: 1px solid #ffcbd5;
+                padding: 10px;
+                outline: none;
+                margin-bottom: 10px;
+                resize: none;
+            }
+
+            .feedback-card button {
+                background: var(--pink-dark);
+                color: white;
+                border: none;
+                padding: 10px 30px;
+                border-radius: 25px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+
+        .heart-float {
+            position: fixed;
+            font-size: 25px;
+            animation: floatUp 6s linear infinite;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="lock-screen">
+        <div class="lock-content">
+            <div style="color: white; font-family: 'Amiri', serif; font-size: 1.5rem; margin-bottom: 20px;">The Day We Got Together 💕</div>
+            <div style="display: flex; justify-content: center;">
+                <div class="digit-box"><button onclick="changeDigit(0, 1)">▲</button><br><span id="d0">0</span><br><button onclick="changeDigit(0, -1)">▼</button></div>
+                <div class="digit-box"><button onclick="changeDigit(1, 1)">▲</button><br><span id="d1">0</span><br><button onclick="changeDigit(1, -1)">▼</button></div>
+                <div class="digit-box"><button onclick="changeDigit(2, 1)">▲</button><br><span id="d2">0</span><br><button onclick="changeDigit(2, -1)">▼</button></div>
+                <div class="digit-box"><button onclick="changeDigit(3, 1)">▲</button><br><span id="d3">0</span><br><button onclick="changeDigit(3, -1)">▼</button></div>
+            </div>
+            <button class="unlock-btn" onclick="verify()">افتح القلب</button>
+        </div>
+        <div class="heart-lock"></div>
+    </div>
+
+    <main id="main-content">
+        <div id="hearts-bg"></div>
+
+        <header id="hbd-header-bg">
+            <h1>Happy Birthday my Love! ✨</h1>
+            <p>كل سنة وإنت منور دنيتي يا أغلى الناس</p>
+        </header>
+
+        <div class="gallery">
+            <div class="top-photo">
+                <div class="photo-box single-photo">
+                    <img src="images/a7.jpg">
+                    <div class="photo-caption" style="color: var(--pink-dark); margin-top: 5px;">أغلى صورة 💕</div>
+                </div>
+            </div>
+
+            <div class="photo-box"><img src="images/a1.jpg"><div class="photo-caption">14/5يوم م اتقابلنا اجمل واحلي ذكرى واجمل شعور حسيته يومها 💕</div></div>
+            <div class="photo-box"><img src="images/a2.jpg"><div class="photo-caption">تاني date لينا و كل حاجه حسيتها معاك  💗</div></div>
+            <div class="photo-box"><img src="images/a3.jpg"><div class="photo-caption">يومنا المميز ✨</div></div>
+            <div class="photo-box"><img src="images/a4.jpg"><div class="photo-caption">يوم م سمعنا فيلم وفيها ايه يعني بتاع ماجد الكدواني وكميه المشاعر الجميله الي حسيتها معاك وقتها 💕</div></div>
+            <div class="photo-box"><img src="images/a5.jpg"><div class="photo-caption">هنا امان 💗</div></div>
+            <div class="photo-box"><img src="images/a6.jpg"><div class="photo-caption">love you forevr ✨</div></div>
+        </div>
+
+        <section class="letters-container" style="display: flex; flex-direction: column; align-items: center;">
+            <div class="love-letter">
+                <p class="english-text" style="font-family: 'Reenie Beanie', cursive; font-size: 2.5rem; text-align: left; margin-bottom: 10px; color: #4b3621;">
+                    To The Man I Want To Spend My Whole Life with ❤️
+                </p>
+                <p class="english-text">
+                    I still remember the very first time we met, how i fell in love with you and your smile & how everything happened unexpectedly. I am beyond blessed & thankful that someone like you came into my life. Thank you for making me feel that I deserve to be loved, to be happy and to have someone as amazing as you are!!!
+                    <br><br>
+                    <span style="font-family: 'Pacifico', cursive;">LOVE YOU... ❤️</span>
+                </p>
+            </div>
+        </section>
+
+        <div class="anniversary-card">
+            <h1 class="card-title">Happy 1 Years Together 💖</h1>
+            <div class="left-panel">
+                <p class="arabic-text" style="font-size: 1.2rem; line-height: 1.8; color: #444;">"اغنيه كل كلمه فيها انا بقولها ليك من كل قلبي سنه كامله معاك عرفت فيها يعني ايه حب يعني ايه شعور الحب الي بجد انا لو رجع بيا الزمن مليون مره اختار اني احبك انت اني اعرفك انت انت اجمل وانقي واطيب حد ممكن الانسان يعرفه فالعالم والله يبختي بيك وبوجودك الي مهون عليا كل حاجه فالدنيا بحبك🫂💗💗💗."</p>
+            </div>
+            <div class="right-panel">
+                <i class="fab fa-spotify" style="color: #1DB954; font-size: 1.5rem;"></i>
+                <div style="font-size: 0.8rem; color: #555; margin-top: 5px;">Scan for Our Song</div>
+                <img src="images/athada alalam.png" class="spotify-qr" alt="QR">
+            </div>
+        </div>
+
+        <div class="feedback-card">
+            <h3>سيبلي كلمة حلوة هنا.. 💌</h3>
+            <textarea id="feedback-text" placeholder="اكتب رسالتك أو تقييمك هنا..."></textarea>
+            <button onclick="sendFeedback()">إرسال التقييم</button>
+            <p id="success-msg" style="display:none; color: var(--pink-dark); margin-top: 10px;">تم استلام رسالتك! 💕</p>
+        </div>
+
+        <footer style="text-align: center; padding: 40px; color: var(--pink-dark); opacity: 0.7;">صُنع بكل حب ليك يا عبودي 💕</footer>
+    </main>
+
+    <script>
+        let code = [0, 0, 0, 0];
+        const correctCode = [2, 0, 2, 6];
+
+        function changeDigit(index, val) {
+        code[index] = (code[index] + val + 10) % 10;
+        document.getElementById(`d${index}`).innerText = code[index];
+        }
+
+        function verify() {
+        if (JSON.stringify(code) === JSON.stringify(correctCode)) {
+        document.getElementById('lock-screen').style.opacity = "0";
+        setTimeout(() => {
+        document.getElementById('lock-screen').style.display = "none";
+        document.getElementById('main-content').style.display = "block";
+        setTimeout(() => { document.getElementById('main-content').style.opacity = "1"; }, 100);
+        setInterval(createHeart, 400);
+        }, 1000);
+        } else { alert("الباسورد هو سنة 2026 يا ندى! 😉"); }
+        }
+
+        function createHeart() {
+        const h = document.createElement('div');
+        h.className = 'heart-float';
+        h.innerHTML = ['💕', '💗'][Math.floor(Math.random()*2)];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        document.getElementById('hearts-bg').appendChild(h);
+        setTimeout(() => h.remove(), 5000);
+        }
+
+        function sendFeedback() {
+        const text = document.getElementById('feedback-text').value;
+        if(text.trim() !== "") {
+        document.getElementById('success-msg').style.display = "block";
+        document.getElementById('feedback-text').value = "";
+        }
+        }
+    </script>
+</body>
+</html>
